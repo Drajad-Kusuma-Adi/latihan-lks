@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>C1 - Canvas</title>
+  </head>
+  <body>
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+      "
+    >
+      <canvas id="cvs"></canvas>
+    </div>
+    <script>
+      const cvs = document.getElementById("cvs");
+      const ctx = cvs.getContext("2d");
+
+      // TODO:
+      // 1. Draw a canvas board
+      cvs.width = 750;
+      cvs.height = 750;
+      // 2. Create event listener that check for user click, if user click add a random circle on the canvas
+      let circles = [];
+      document.addEventListener("click", (e) => {
+        circles.push({
+          x: Math.random() * cvs.width,
+          y: Math.random() * cvs.height,
+          radius: Math.random() * 75,
+          sAngle: 0,
+          eAngle: 2,
+          up: true,
+          //   right: true,
+        });
+      });
+      // 3. Add interval to move the circle randomly up and down every 10ms
+      setInterval(() => {
+        ctx.clearRect(0, 0, cvs.width, cvs.height);
+        ctx.fillStyle = "blue";
+        ctx.fillRect(0, 0, cvs.width, cvs.height);
+        circles.forEach((circle) => {
+          ctx.beginPath();
+          ctx.fillStyle = "white";
+          ctx.arc(
+            circle.x,
+            circle.y,
+            circle.radius,
+            circle.sAngle,
+            circle.eAngle * Math.PI
+          );
+          ctx.fill();
+          if (circle.y < 0 || circle.y > cvs.height) {
+            circle.up = !circle.up;
+          }
+          //   if (circle.x < 0 || circle.x > cvs.width) {
+          //     circle.right = !circle.right;
+          //   }
+          if (circle.up === true) {
+            circle.y -= 5;
+          } else {
+            circle.y += 5;
+          }
+          //   if (circle.right === true) {
+          //     circle.x += 5;
+          //   } else {
+          //     circle.x -= 5;
+          //   }
+        });
+      }, 10);
+    </script>
+  </body>
+</html>

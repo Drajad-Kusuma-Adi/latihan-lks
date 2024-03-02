@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>B1. Animasi</title>
+    <style>
+      body {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      @keyframes expand1 {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: 200px;
+        }
+      }
+
+      @keyframes expand2 {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: 150px;
+        }
+      }
+
+      @keyframes expand3 {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: 100px;
+        }
+      }
+
+      @keyframes expand4 {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: 50px;
+        }
+      }
+
+      .container {
+        display: flex;
+      }
+
+      .label-container {
+        margin-right: 10px;
+      }
+
+      .chart-container {
+        border-left: 2px solid black;
+      }
+
+      .chart-bar1 {
+        animation: expand1 1s forwards;
+        animation-delay: 0.5s;
+        border: 0.5px solid grey;
+        width: 0;
+        height: 50px;
+        background-color: red;
+      }
+
+      .chart-bar2 {
+        animation: expand2 1s forwards;
+        animation-delay: 0.5s;
+        border: 0.5px solid grey;
+        width: 0;
+        height: 50px;
+        background-color: lime;
+      }
+
+      .chart-bar3 {
+        animation: expand3 1s forwards;
+        animation-delay: 0.5s;
+        border: 0.5px solid grey;
+        width: 0;
+        height: 50px;
+        background-color: yellow;
+      }
+
+      .chart-bar4 {
+        animation: expand4 1s forwards;
+        animation-delay: 0.5s;
+        border: 0.5px solid grey;
+        width: 0;
+        height: 50px;
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="label-container">
+        <div style="margin-bottom: 40px; rotate: 90deg">2016</div>
+        <br />
+        <div style="margin-bottom: 40px; rotate: 90deg">2017</div>
+        <br />
+        <div style="margin-bottom: 40px; rotate: 90deg">2018</div>
+        <br />
+        <div style="rotate: 90deg">2019</div>
+      </div>
+      <div class="chart-container">
+        <div class="chart-bar1"></div>
+        <br />
+        <div class="chart-bar2"></div>
+        <br />
+        <div class="chart-bar3"></div>
+        <br />
+        <div class="chart-bar4"></div>
+      </div>
+    </div>
+  </body>
+</html>
