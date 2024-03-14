@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmers Delight</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+
+    /* TODO: keyframes for all pages */
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background-color: #fff;
+      box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    header div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    header div button {
+      width: 96px;
+      height: 100%;
+      background-color: transparent;
+      border: 0;
+    }
+
+    @keyframes blue-glow-on-hover {
+      0% {
+        background-color: rgb(111, 0, 255);
+      }
+      100% {
+        background-color: rgb(111, 0, 255, 0.5);
+      }
+    }
+    @keyframes blue-unglow-on-dishover {
+      0% {
+          background-color: rgb(111, 0, 255, 0.5);
+        }
+        100% {
+          background-color: rgb(111, 0, 255);
+        }
+    }
+    @keyframes white-glow-on-hover {
+      0% {
+        background-color: #fff;
+      }
+      100% {
+        background-color: rgb(111, 0, 255);
+        color: #fff;
+      }
+    }
+    @keyframes white-unglow-on-dishover {
+      0% {
+        background-color: rgb(111, 0, 255);
+      }
+      100% {
+        background-color: #fff;
+        color: #333;
+      }
+    }
+
+    .nav-btn-cta {
+      animation: blue-unglow-on-dishover 0.5s forwards;
+      background-color: rgb(111, 0, 255);
+      color: #f9f9f9;
+      width: fit-content;
+      padding: 16px;
+      font-size: larger;
+    }
+    .nav-btn-cta:hover {
+      cursor: pointer;
+      animation: blue-glow-on-hover 0.5s forwards;
+    }
+
+    .nav-btn {
+      animation: white-unglow-on-dishover 0.5s forwards;
+      font-size: larger;
+      padding: 16px;
+      width: fit-content;
+    }
+    .nav-btn:hover {
+      cursor: pointer;
+      animation: white-glow-on-hover 0.5s forwards;
+    }
+
+    main {
+      background-image: url('assets/hero.jpeg');
+      height: 80vh;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    main button {
+      animation: blue-unglow-on-dishover 0.5s forwards;
+      background-color: rgb(111, 0, 255);
+      color: #f9f9f9;
+      width: fit-content;
+      padding: 16px;
+      font-size: larger;
+      border: 0;
+      box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    main button:hover {
+      cursor: pointer;
+      animation: blue-glow-on-hover 0.5s forwards;
+    }
+
+    footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="margin: 16px;">
+      <img src="assets/logo.svg" alt="" width="64" style="margin: 8px;">
+      <h2 style="margin: 8px;">Farmers Delight</h2>
+    </div>
+    <div style="height: 128px;">
+      <button class="nav-btn">About Us</button>
+      <button class="nav-btn">Contact</button>
+      <button style="display: flex; align-items: center;" class="nav-btn-cta"><img src="assets/shopping-cart.svg" alt="" width="48" style="margin-right: 8px;">Buy Our Products!</button>
+    </div>
+  </header>
+  <main>
+    <h1 style="margin: 8px;">Farmers Delight</h1>
+    <p style="margin: 8px;">Farmer's Delight is a <span id="typewriter"></span></p>
+    <button style="margin: 8px;">Order now!</button>
+  </main>
+  <footer>
+    <p>&copy; 2024 Farmers Delight</p>
+  </footer>
+  <script>
+    const typewriter = document.getElementById('typewriter');
+    const texts = [
+       'farm-to-table restaurant that specializes in healthy, delicious food.',
+       'place where farmers cook their food and deliver it to your table.',
+       'community of farmers who are passionate about healthy food.'
+    ];
+    let currentText = 0;
+    let currentIndex = 0;
+    let typingSpeed = 50;
+    let deleteSpeed = 25;
+    let isDeleting = false;
+
+    function typewriterFunc() {
+       if (isDeleting) {
+         if (currentIndex <= 0) {
+           isDeleting = false;
+           currentIndex = 0;
+           currentText = (currentText + 1) % texts.length;
+           setTimeout(typewriterFunc, typingSpeed);
+         } else {
+           typewriter.innerHTML = texts[currentText].substring(0, currentIndex - 1);
+           currentIndex--;
+           setTimeout(typewriterFunc, deleteSpeed);
+         }
+       } else {
+         if (currentIndex >= texts[currentText].length) {
+           setTimeout(() => { isDeleting = true; typewriterFunc(); }, 1000);
+         } else {
+           typewriter.innerHTML += texts[currentText].charAt(currentIndex);
+           currentIndex++;
+           setTimeout(typewriterFunc, typingSpeed);
+         }
+       }
+    }
+
+    typewriterFunc();
+
+    // let indicatorOn = true;
+    // setInterval(() => {
+    //   if (indicatorOn) {
+    //     document.getElementById('typingIndicator').innerHTML = '';
+    //     indicatorOn = false
+    //   } else {
+    //     document.getElementById('typingIndicator').innerHTML = '|';
+    //     indicatorOn = true;
+    //   }
+    // }, 1000);
+   </script>
+</body>
+</html>
