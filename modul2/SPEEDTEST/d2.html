@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Analytics</title>
+  <style>
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <ul>
+    <li>
+      Top 5 sent words:
+      <ul id="topWords"></ul>
+    </li>
+    <li>
+      Total messages sent: <span id="messagesSent"></span>
+    </li>
+    <li>
+      Total messages received: <span id="messagesReceived"></span>
+    </li>
+    <li>
+      Average characters length sent: <span id="avgCharsSent"></span>
+    </li>
+    <li>
+      Average characters length received: <span id="avgCharsReceived"></span>
+    </li>
+  </ul>
+  <script>
+    const messages = {
+      "messages": [
+        {"received": true, "text": "Hi there! How's it going?"},
+        {"received": true, "text": "Hey, I'm doing well. Thanks for asking!"},
+        {"received": false, "text": "That's great to hear. What have you been up to?"},
+        {"received": false, "text": "Just working and staying busy. How about you?"},
+        {"received": true, "text": "Same here. I've been working on some new projects lately."},
+        {"received": false, "text": "That's cool. What kind of projects?"},
+        {"received": true, "text": "Mostly programming and data analysis. How about you? What do you like to do in your free time?"},
+        {"received": false, "text": "I enjoy hiking and trying new restaurants. Have you tried any new restaurants lately?"},
+        {"received": true, "text": "Yes, I went to a new Thai restaurant last weekend and it was delicious!"},
+        {"received": false, "text": "I'll have to check it out. I love Thai food. So, what programming languages do you use for your projects?"},
+        {"received": false, "text": "I mainly use Python and R for data analysis, but I also know some Java and C++ for programming."},
+        {"received": false, "text": "Nice, Python is my favorite language. What kind of data analysis are you doing?"},
+        {"received": true, "text": "I'm analyzing social media data to understand user behavior and preferences. It's really interesting stuff."},
+        {"received": true, "text": "That sounds fascinating. I'd love to learn more about that. What tools do you use for the analysis?"},
+        {"received": true, "text": "I mainly use R and its packages for data visualization and statistical analysis. What about you? What tools do you use for your work?"},
+        {"received": true, "text": "I use a lot of Excel and SQL for data analysis and reporting. But I'm always looking to learn new tools and techniques."},
+        {"received": true, "text": "Excel is a powerful tool, and SQL is essential for data manipulation. You're doing great! Keep it up."},
+        {"received": true, "text": "Thanks, I appreciate the encouragement. I'm always trying to improve my skills and learn new things."},
+        {"received": false, "text": "That's the spirit! Let's keep in touch and share our knowledge and experiences. Have a great day!"},
+        {"received": true, "text": "You too! Take care."},
+        {"received": true, "text": "Hi again, I was thinking about our conversation and I wanted to ask you..."}
+      ]
+    };
+
+    let topWords = [];
+    let messagesSent = 0;
+    let messagesReceived = 0;
+    let avgCharsSent = 0;
+    let avgCharsReceived = 0;
+
+    let words = [];
+    let sentChars = [];
+    let receivedChars = [];
+
+    let totalCharsSent = 0;
+    let totalCharsReceived = 0;
+
+    messages.messages.forEach((val) => {
+      messagesSent++;
+      if (val.received) {
+        messagesReceived++;
+        receivedChars.push(val.text.split(''));
+      }
+      sentChars.push(val.text.split(''));
+      words.push(val.text.split(' '));
+    })
+
+    sentChars.forEach((val) => {
+      val.forEach((char) => {
+        totalCharsSent++;
+      })
+    })
+    receivedChars.forEach((val) => {
+      val.forEach((char) => {
+        totalCharsReceived++;
+      })
+    })
+
+    let wordCounts = {};
+    words.flat().forEach(word => {
+      word = word.toLowerCase();
+      wordCounts[word] = wordCounts[word] ? wordCounts[word] + 1 : 1;
+    });
+
+    let topWordsArray = Object.entries(wordCounts).sort((a,b) => b[1] - a[1]).slice(0, 5);
+
+    topWordsArray.forEach(wordPair => {
+      topWords.push({word: wordPair[0], count: wordPair[1]});
+    });
+
+    avgCharsSent = Math.round(totalCharsSent / messagesSent);
+    avgCharsReceived = Math.round(totalCharsReceived / messagesReceived);
+
+    document.getElementById('topWords').innerHTML = topWords.map(val => `<li>${val.word} - ${val.count}</li>`).join('');
+    document.getElementById('messagesSent').innerHTML = messagesSent;
+    document.getElementById('messagesReceived').innerHTML = messagesReceived;
+    document.getElementById('avgCharsSent').innerHTML = avgCharsSent;
+    document.getElementById('avgCharsReceived').innerHTML = avgCharsReceived;
+  </script>
+</body>
+</html>
